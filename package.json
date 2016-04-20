@@ -1,0 +1,14 @@
+{
+  "name": "ejs-lint",
+  "version": "0.1.0",
+  "description": "Linter/Syntax Checker for EJS Templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Zimmerman (http://ryanzim.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "syntax-error": "^1.1.6"
+  }
+}

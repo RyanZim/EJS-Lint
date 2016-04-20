@@ -1,0 +1,14 @@
+<% for(i=0;i<5;i++){ %>
+  Hello!
+<% } %>
+<h1>Users</h1>
+
+<% foo( %>
+<% //    ^ Yes, that's supposed to be there to demonstrate the error %>
+<% function user(user) { %>
+  <li><strong><%= user.name %></strong> is a <%= user.age %> year old <%= user.species %>.</li>
+<% } %>
+
+<ul>
+  <% users.map(user) %>
+</ul>
