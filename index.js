@@ -56,7 +56,7 @@ exports.parse = function(text, opts){
           }
         }
     } // end of switch
-  }); // endo of loop
+  }); // end of loop
   // console.log(scr);
   // ^^^^ enable this to debug wrong line or col numbers
   return scr;
