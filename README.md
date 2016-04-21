@@ -12,7 +12,9 @@ This was born out of [mde/ejs #119](https://github.com/mde/ejs/issues/119) and t
 
 At this early stage, EJS-Lint only supports parsing scriptlet tags (`<%` and `%>`). It ignores all other tags (including `<%_`, `-%>`, etc.).
 
-It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion. More features coming soon.
+It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion.
+
+More features coming soon.
 
 ## Installation
 
@@ -32,6 +34,8 @@ There are two lines in the source code that you may want to uncomment during dev
 ```js
 exports.Template = function(t,o){return new Template(t,o)};
 ```
+
+This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
 
 ## API
 

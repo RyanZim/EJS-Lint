@@ -1,5 +1,10 @@
 # EJS
 
+**Note:** This is **NOT** a regular version of mde/ejs! `lib/ejs.js` has the following line added:
+```js
+exports.Template = function(t,o){return new Template(t,o)};
+```
+
 Embedded JavaScript templates
 
 [![Build Status](https://img.shields.io/travis/mde/ejs/master.svg?style=flat)](https://travis-ci.org/mde/ejs)

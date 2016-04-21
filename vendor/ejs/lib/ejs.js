@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Line 711-712 added by Ryan Zimmerman
 */
 
 'use strict';
@@ -707,6 +708,7 @@ Template.prototype = {
   }
 };
 
+// The following line was added by Ryan Zimmerman
 exports.Template = function(t,o){return new Template(t,o)};
 
 /**
