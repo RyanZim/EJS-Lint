@@ -1,5 +1,31 @@
 var ejs=require('./vendor/ejs/lib/ejs.js'),
     check = require('syntax-error');
+// Internal Function
+// Replaces text with whitespace
+function padWhitespace(text){
+  var res='';
+  // if text contains newlines,
+  // space them properly
+  if(text.indexOf("\n") !== -1){
+    // a crude way of counting newlines
+    text.split("\n").forEach(function(t, n){
+      if(n !== 0){
+        // Add newline
+        res+="\n";
+      }
+      // Pad with whitespace between each newline
+      for(x=0;x<t.length;x++){
+        res+=' ';
+      }
+    });
+  } else {
+    // Only pad with whitespace if no newline
+    for(x=0;x<text.length;x++){
+      res+=' ';
+    }
+  }
+  return res;
+}
 exports.parse = function(text, opts){
   var temp=ejs.Template(text, opts);
   var arr=temp.parseTemplateText();
@@ -17,43 +43,23 @@ exports.parse = function(text, opts){
     switch(str){
       case '<%':
         mode=1;
-        scr+='  ';
+        scr+=padWhitespace(str);
         break;
       case '%>':
         mode=0;
-        scr+='  ';
+        scr+=padWhitespace(str);
         break;
       case (str.match(/^\s*include\s+(\S+)/) || {}).input:
         // if old-style include, replace with whitespace
-        for(x=0;x<str.length;x++){
-          scr+=' ';
-        }
+        scr+=padWhitespace(str);
         break;
       default:
         // If inside Scriptlet, add to scr
         if (mode === 1){
           scr+=str;
         } else {
-          // Otherwise, pad with whitespace
-          // if newline
-          if(str.indexOf("\n") !== -1){
-            // a crude way of counting newlines
-            str.split("\n").forEach(function(s, n){
-              if(n !== 0){
-                // Add newline
-                scr+="\n";
-              }
-              // Pad with Whitespace between each newline
-              for(x=0;x<s.length;x++){
-                scr+=' ';
-              }
-            });
-          } else {
-            // Pad with Whitespace if no newline
-            for(x=0;x<str.length;x++){
-              scr+=' ';
-            }
-          }
+          // else, pad with whitespace
+          scr+=padWhitespace(str);
         }
     } // end of switch
   }); // end of loop
