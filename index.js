@@ -42,10 +42,13 @@ exports.parse = function(text, opts){
   arr.forEach(function(str, i, arr){
     switch(str){
       case '<%':
+      case '<%_':
         mode=1;
         scr+=padWhitespace(str);
         break;
       case '%>':
+      case '-%>':
+      case '_%>':
         mode=0;
         scr+=padWhitespace(str);
         break;
