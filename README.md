@@ -26,7 +26,7 @@ EJS-Lint replaces everything outside a scriptlet tag with whitespace (to retain 
 
 ## Development Notes
 
-For development testing, you can place your EJS in test.ejs and run `node test.js`. This will `console.log()` the error like this: `ErrorMessage(line:col)`.
+For development testing, you can place your EJS in try.ejs and run `npm run try`. If there is an error, it will `console.log()` the it like this: `ErrorMessage(line:col)`.
 
 There are two lines in the source code that you may want to uncomment during development for verbose output. If you are getting the wrong line or column number, uncomment the second one. This will print the output of `parse()` so you can see the JS that EJS-Lint is sending to node-syntax-error.
 
