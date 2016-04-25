@@ -10,7 +10,7 @@ This was born out of [mde/ejs #119](https://github.com/mde/ejs/issues/119) and t
 
 ## Features
 
-At this early stage, EJS-Lint only supports parsing scriptlet tags (`<%` and `%>`). It ignores all other tags (including `<%_`, `-%>`, etc.).
+At this early stage, EJS-Lint only supports parsing scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`). It ignores all other tags.
 
 It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion.
 
