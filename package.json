@@ -4,16 +4,20 @@
   "description": "Linter/Syntax Checker for EJS Templates",
   "author": "Ryan Zimmerman (http://ryanzim.com/)",
   "license": "MIT",
-  "repository":{
+  "repository": {
     "type": "git",
     "url": "git://github.com/ryanzim/ejs-lint.git"
   },
   "main": "index.js",
+  "bin": {
+    "ejslint": "./cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "try": "node try.js"
+    "try": "./cli.js try.ejs"
   },
   "dependencies": {
-    "syntax-error": "^1.1.6"
+    "syntax-error": "^1.1.6",
+    "yargs": "^4.6.0"
   }
 }
