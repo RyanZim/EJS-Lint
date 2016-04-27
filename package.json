@@ -17,6 +17,7 @@
     "try": "./cli.js try.ejs"
   },
   "dependencies": {
+    "glob": "^7.0.3",
     "syntax-error": "^1.1.6",
     "yargs": "^4.6.0"
   }

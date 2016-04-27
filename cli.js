@@ -8,15 +8,16 @@ var argv=require('yargs')
   })
   .help()
   .argv;
-var ejsLint=require('./index.js');
+var glob=require('glob'),
+    fs=require('fs'),
+    ejsLint=require('./index.js');
 // INTERNAL FUNCTIONS
 // Read from file & return contents
 function getFile(filename){
-  var fs=require('fs');
   return fs.readFileSync(filename, 'utf8');
 }
 // Lint or parse
-function lint(text){
+function lint(text, returnErrors){
   var err;
   if(argv.parse){
     console.log(ejsLint.parse(text, {}));
@@ -24,16 +25,48 @@ function lint(text){
     err=ejsLint.lint(text, {});
   }
   if(err){
-    // if errors, log them
-    console.log(err.message+'('+err.line+':'+err.column+')');
+    // if error, log it unless returnErrors is true
+    if(!returnErrors){
+      console.log(err.message+'('+err.line+':'+err.column+')');
+    } else {
+      // if returnErrors is true, return the error
+      return err;
+    }
   }
-  // exit
-  process.exit();
+  // exit unless noExit is true
+  if(!returnErrors){
+    process.exit();
+  }
 }
 // *********************** //
 if (argv._[0]){
-  // if filename, get file and lint
-  lint(getFile(argv._[0]));
+  // if filename, check for globs
+  if(glob.hasMagic(argv._[0])){
+    // run glob
+    glob(argv._[0], function(err, matches){
+      var arr=[];
+      // if matches is a string, turn it into an array
+      if(typeof matches==='string'){
+        console.log('string')
+        arr[0]=matches;
+      } else {
+        arr=matches;
+      }
+      // lint each file
+      arr.forEach(function(filename, i){
+        // set returnErrors to true and handle errors
+        var err=lint(getFile(filename), true);
+        if(err){
+          console.log(err.message+'('+err.line+':'+err.column+') in '+filename);
+        }
+      });
+      // exit when all files are linted
+      process.exit();
+    });
+  } else {
+    // else, just lint
+    lint(getFile(argv._[0]));
+  }
 } else {
   // else, read from stdin and lint
   var text='';
