@@ -37,6 +37,19 @@ exports.Template = function(t,o){return new Template(t,o)};
 
 This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
 
+## CLI
+
+```
+Usage:
+ ejslint <file>
+
+ If no file is specified, reads from stdin
+
+Options:
+  -p, --parse  Run parse() instead of lint()                           [boolean]
+  --help       Show help                                               [boolean]
+```
+
 ## API
 
 Require:
@@ -46,5 +59,3 @@ var ejsLint=require('./path/to/index.js');
 Then do `ejsLint.lint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse. See an example in test.js.
 
 `ejsLint.parse(text, options)` is a "plumbing" function that strips away all non-js text and replaces it with whitespace. This may be useful if you wish to use an alternate syntax checker.
-
-No CLI yet, I hope to add one soon!
