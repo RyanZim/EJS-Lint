@@ -6,13 +6,13 @@ This was born out of [mde/ejs #119](https://github.com/mde/ejs/issues/119) and t
 
 **This project is in development, and has not reached the MVP stage yet. Stay tuned; in the meantime, PR's are welcome!**
 
-**Note:** This linter does not attempt to check for unclosed EJS tags, so if you get an error `Unexpected token` with a line number that doesn't contain any scriptlets, you most likely forgot to close a tag earlier.
-
 ## Features
 
 At this early stage, EJS-Lint only supports parsing scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`). It ignores all other tags.
 
 It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion.
+
+**Note:** This linter does not attempt to check for unclosed EJS tags, so if you get an error `Unexpected token` with a line number that doesn't contain any scriptlets, you most likely forgot to close a tag earlier.
 
 More features coming soon.
 
@@ -56,7 +56,7 @@ Require:
 ```js
 var ejsLint=require('./path/to/index.js');
 ```
-Then do `ejsLint.lint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse. See an example in test.js.
+Then do `ejsLint.lint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
 `ejsLint.parse(text, options)` is a "plumbing" function that strips away all non-js text and replaces it with whitespace. This may be useful if you wish to use an alternate syntax checker.
 
