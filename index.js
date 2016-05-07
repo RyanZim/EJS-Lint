@@ -1,4 +1,5 @@
 var ejs=require('./vendor/ejs/lib/ejs.js'),
+    EJS_INCLUDE_REGEX=require('ejs-include-regex'),
     check = require('syntax-error');
 // Internal Function
 // Replaces text with whitespace
@@ -52,7 +53,7 @@ exports.parse = function(text, opts){
         mode=0;
         scr+=padWhitespace(str);
         break;
-      case (str.match(/^\s*include\s+(\S+)/) || {}).input:
+      case (str.match(EJS_INCLUDE_REGEX) || {}).input:
         // if old-style include, replace with whitespace
         scr+=padWhitespace(str);
         break;
