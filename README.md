@@ -41,6 +41,8 @@ exports.Template = function(t,o){return new Template(t,o)};
 
 This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
 
+Run `npm test` to test your changes before committing. We have 100% code coverage and we would like it to stay that way; please include tests when adding a new feature. Run `npm run cover` to generate the coverage report.
+
 ## CLI
 
 ```

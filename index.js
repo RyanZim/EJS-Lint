@@ -4,7 +4,8 @@ var ejs=require('./vendor/ejs/lib/ejs.js'),
 // Internal Function
 // Replaces text with whitespace
 function padWhitespace(text){
-  var res='';
+  var x,
+      res='';
   // if text contains newlines,
   // space them properly
   if(text.indexOf("\n") !== -1){

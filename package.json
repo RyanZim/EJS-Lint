@@ -15,7 +15,8 @@
     "ejslint": "./cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -x 'vendor/**'",
     "try": "./cli.js try.ejs"
   },
   "dependencies": {
@@ -23,5 +24,9 @@
     "glob": "^7.0.3",
     "syntax-error": "^1.1.6",
     "yargs": "^4.6.0"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5"
   }
 }
