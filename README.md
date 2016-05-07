@@ -18,13 +18,17 @@ More features coming soon.
 
 ## Installation
 
-We're not on npm yet, so I recommend manually cloning the repository. Then do `npm i` to load dependencies.
+```bash
+npm install ejs-lint
+```
 
 ## How it Works
 
 EJS-Lint replaces everything outside a scriptlet tag with whitespace (to retain line & column numbers) and then runs the resulting (hopefully) valid JS through [node-syntax-error](https://github.com/substack/node-syntax-error) to check for errors.
 
 ## Development Notes
+
+Clone the repo; then do `npm i` to load dependencies.
 
 For development testing, you can place your EJS in try.ejs and run `npm run try`. If there is an error, it will `console.log()` the it like this: `ErrorMessage(line:col)`.
 

@@ -2,12 +2,14 @@
   "name": "ejs-lint",
   "version": "0.1.0",
   "description": "Linter/Syntax Checker for EJS Templates",
-  "author": "Ryan Zimmerman (http://ryanzim.com/)",
+  "author": "Ryan Zimmerman <opensrc@ryanzim.com> (http://ryanzim.com/)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/ryanzim/ejs-lint.git"
   },
+  "homepage": "https://github.com/RyanZim/EJS-Lint",
+  "bugs": "https://github.com/RyanZim/EJS-Lint/issues",
   "main": "index.js",
   "bin": {
     "ejslint": "./cli.js"
