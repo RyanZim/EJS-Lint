@@ -24,24 +24,7 @@ npm install ejs-lint
 
 ## How it Works
 
-EJS-Lint replaces everything outside a scriptlet tag with whitespace (to retain line & column numbers) and then runs the resulting (hopefully) valid JS through [node-syntax-error](https://github.com/substack/node-syntax-error) to check for errors.
-
-## Development Notes
-
-Clone the repo; then do `npm i` to load dependencies.
-
-For development testing, you can place your EJS in try.ejs and run `npm run try`. If there is an error, it will `console.log()` the it like this: `ErrorMessage(line:col)`.
-
-There are two lines in the source code that you may want to uncomment during development for verbose output. If you are getting the wrong line or column number, uncomment the second one. This will print the output of `parse()` so you can see the JS that EJS-Lint is sending to node-syntax-error.
-
-**Note:** The files in `vendor/` are **NOT** regular versions of mde/ejs! `lib/ejs.js` has the following line added:
-```js
-exports.Template = function(t,o){return new Template(t,o)};
-```
-
-This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
-
-Run `npm test` to test your changes before committing. We have 100% code coverage and we would like it to stay that way; please include tests when adding a new feature. Run `npm run cover` to generate the coverage report.
+EJS-Lint replaces everything outside a scriptlet tag with whitespace (to retain line & column numbers) and then runs the resulting (hopefully) valid JS through [node-syntax-error](https://github.com/substack/node-syntax-error) to check for errors. See the Development Notes below for more details.
 
 ## CLI
 
@@ -65,6 +48,23 @@ var ejsLint=require('./path/to/index.js');
 Then do `ejsLint.lint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
 `ejsLint.parse(text, options)` is a "plumbing" function that strips away all non-js text and replaces it with whitespace. This may be useful if you wish to use an alternate syntax checker.
+
+## Development Notes
+
+Clone the repo; then do `npm i` to load dependencies.
+
+For development testing, you can place your EJS in try.ejs and run `npm run try`. If there is an error, it will `console.log()` the it like this: `ErrorMessage(line:col)`.
+
+There are two lines in the source code that you may want to uncomment during development for verbose output. If you are getting the wrong line or column number, uncomment the second one. This will print the output of `parse()` so you can see the JS that EJS-Lint is sending to node-syntax-error.
+
+**Note:** The files in `vendor/` are **NOT** regular versions of mde/ejs! `lib/ejs.js` has the following line added:
+```js
+exports.Template = function(t,o){return new Template(t,o)};
+```
+
+This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
+
+Please read the [Contributing Guidelines](CONTRIBUTING.md) for more info.
 
 ## License
 
