@@ -16,12 +16,14 @@
   },
   "scripts": {
     "test": "mocha",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -x 'vendor/**'",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "try": "./cli.js try.ejs"
   },
   "dependencies": {
+    "ejs": "2.4.1",
     "ejs-include-regex": "^1.0.0",
     "glob": "^7.0.3",
+    "rewire": "^2.5.1",
     "syntax-error": "^1.1.6",
     "yargs": "^4.6.0"
   },

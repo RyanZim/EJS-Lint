@@ -1,4 +1,5 @@
-var ejs=require('./vendor/ejs/lib/ejs.js'),
+var rewire=require('rewire'),
+    ejs=rewire('ejs'),
     EJS_INCLUDE_REGEX=require('ejs-include-regex'),
     check = require('syntax-error');
 // Internal Function
@@ -29,11 +30,15 @@ function padWhitespace(text){
   return res;
 }
 exports.parse = function(text, opts){
-  var temp=ejs.Template(text, opts);
+  // Use rewire to access the ejs internal function "Template"
+  var Template=ejs.__get__("Template"),
+      temp=new Template(text, opts);
+  // Use ejs to parse the text
   var arr=temp.parseTemplateText();
   // console.log(arr);
   // ^^^^ enable this for development purposes
   // This allows you to see the values you will be working with below
+  // Initialize variables:
   // Initialize var to hold the JS-Parseable String
   var scr='';
   // Initialize mode var
