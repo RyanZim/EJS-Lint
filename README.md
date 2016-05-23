@@ -57,12 +57,7 @@ For development testing, you can place your EJS in try.ejs and run `npm run try`
 
 There are two lines in the source code that you may want to uncomment during development for verbose output. If you are getting the wrong line or column number, uncomment the second one. This will print the output of `parse()` so you can see the JS that EJS-Lint is sending to node-syntax-error.
 
-**Note:** The files in `vendor/` are **NOT** regular versions of mde/ejs! `lib/ejs.js` has the following line added:
-```js
-exports.Template = function(t,o){return new Template(t,o)};
-```
-
-This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
+We use [Rewire](https://github.com/jhnns/rewire) to load [mde/ejs](https://github.com/mde/ejs). This allows us to access `Template.parseTemplateText()`, a "plumbing" function that parses the string and splits it into an array.
 
 Please read the [Contributing Guidelines](CONTRIBUTING.md) for more info.
 
