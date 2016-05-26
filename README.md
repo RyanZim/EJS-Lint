@@ -30,13 +30,14 @@ EJS-Lint replaces everything outside a scriptlet tag with whitespace (to retain 
 
 ```
 Usage:
- ejslint <file>
+ ejslint <file> [-d=?]
 
  If no file is specified, reads from stdin
 
 Options:
-  -p, --parse  Run parse() instead of lint()                           [boolean]
-  --help       Show help                                               [boolean]
+  -p, --parse      Run parse() instead of lint()                       [boolean]
+  -d, --delimiter  Specify a custom delimiter ( i.e. <? instead of <% ) [string]
+  --help           Show help                                           [boolean]
 ```
 
 ## API
