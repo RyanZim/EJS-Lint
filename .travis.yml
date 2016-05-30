@@ -4,3 +4,5 @@ node_js:
 before_install:
   - npm update -g npm
   - npm --version
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
