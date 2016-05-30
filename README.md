@@ -4,17 +4,17 @@ Linter/Syntax Checker for EJS Templates.
 
 This was born out of [mde/ejs #119](https://github.com/mde/ejs/issues/119) and the frustration of the unhelpful errors thrown if you make a simple syntax error inside a scriptlet tag.
 
-**This project is in development, and has not reached the MVP stage yet. Stay tuned; in the meantime, PR's are welcome!**
+**During this pre-v1.0.0 stage, we promise not to break backwards-compatiblity in a PATCH version bump.**
 
 ## Features
 
-At this early stage, EJS-Lint only supports parsing scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`). It ignores all other tags.
-
-It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion.
+EJS-Lint parses scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`). It ignores all other tags (i.e. `<%=`).
 
 **Note:** This linter does not attempt to check for unclosed EJS tags, so if you get an error `Unexpected token` with a line number that doesn't contain any scriptlets, you most likely forgot to close a tag earlier.
 
-More features coming soon.
+It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion.
+
+It can work with custom delimiters, just pass it in the options (if using the API) or pass the `--delimiter` (`-d`) flag on the CLI.
 
 ## Installation
 
@@ -25,6 +25,8 @@ npm install ejs-lint
 ## How it Works
 
 EJS-Lint replaces everything outside a scriptlet tag with whitespace (to retain line & column numbers) and then runs the resulting (hopefully) valid JS through [node-syntax-error](https://github.com/substack/node-syntax-error) to check for errors. See the Development Notes below for more details.
+
+**Why can't EJS do this?** At EJS, we try to keep the library lightweight. EJS-Lint uses [acorn](https://github.com/ternjs/acorn) which is too large a dependency for EJS.
 
 ## CLI
 
