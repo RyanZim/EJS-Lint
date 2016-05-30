@@ -29,9 +29,10 @@ function padWhitespace(text){
   }
   return res;
 }
-exports.parse = function(text, opts){
+exports.parse = function(text, options){
   // Use rewire to access the ejs internal function "Template"
   var Template=ejs.__get__("Template"),
+      opts=options || {},
       temp=new Template(text, opts);
   // Use ejs to parse the text
   var arr=temp.parseTemplateText();
@@ -46,16 +47,18 @@ exports.parse = function(text, opts){
   // Inside Scriptlet, mode=1
   // Outside Scriptlet, mode=0
   var mode;
+  // Initialize delimiter variable
+  var d=opts.delimiter || '%';
   arr.forEach(function(str, i, arr){
     switch(str){
-      case '<%':
-      case '<%_':
+      case '<'+d:
+      case '<'+d+'_':
         mode=1;
         scr+=padWhitespace(str);
         break;
-      case '%>':
-      case '-%>':
-      case '_%>':
+      case d+'>':
+      case '-'+d+'>':
+      case '_'+d+'>':
         mode=0;
         scr+=padWhitespace(str);
         break;

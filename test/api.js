@@ -22,6 +22,10 @@ suite('parse()', function(){
   test('old-style include', function(){
     assert.equal(ejsLint.parse('<% include foo.ejs %>'), '                     ');
   });
+  test('custom delimiter', function(){
+    assert.equal(ejsLint.parse('<$ var name="John"; $><$_ var greeting="Hello" _$><$= greeting $><$- name -$>!', {delimiter: '$'}),
+                               '   var name="John";       var greeting="Hello"                                ');
+  });
   test('multi-line file', function(){
     assert.equal(ejsLint.parse(fixture('valid.ejs')), fixture('valid.parsed.ejs'));
   });

@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 var argv=require('yargs')
-  .usage('Usage:\n $0 <file>\n\n If no file is specified, reads from stdin')
+  .usage('Usage:\n $0 <file> [-d=?]\n\n If no file is specified, reads from stdin')
   .option('p', {
     alias: 'parse',
     describe: 'Run parse() instead of lint()',
     type: 'boolean'
+  })
+  .option('d', {
+    alias: 'delimiter',
+    describe: 'Specify a custom delimiter ( i.e. <? instead of <% )',
+    type: 'string'
   })
   .help()
   .argv;
@@ -20,9 +25,9 @@ function getFile(filename){
 function lint(text, returnErrors){
   var err;
   if(argv.parse){
-    console.log(ejsLint.parse(text, {}));
+    console.log(ejsLint.parse(text, opts));
   } else {
-    err=ejsLint.lint(text, {});
+    err=ejsLint.lint(text, opts);
   }
   if(err){
     // if error, log it unless returnErrors is true
@@ -39,6 +44,12 @@ function lint(text, returnErrors){
   }
 }
 // *********************** //
+// Initialize vars
+var opts={};
+// if --delimiter is specified, set delimiter
+if(argv.delimiter){
+  opts.delimiter=argv.delimiter;
+}
 if (argv._[0]){
   // if filename, check for globs
   if(glob.hasMagic(argv._[0])){
