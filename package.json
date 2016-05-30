@@ -15,7 +15,7 @@
     "ejslint": "./cli.js"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha && jshint *.js test/**.js",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "try": "./cli.js try.ejs"
   },
@@ -23,12 +23,14 @@
     "ejs": "2.4.1",
     "ejs-include-regex": "^1.0.0",
     "glob": "^7.0.3",
+    "read-input": "^0.3.1",
     "rewire": "^2.5.1",
     "syntax-error": "^1.1.6",
     "yargs": "^4.6.0"
   },
   "devDependencies": {
     "istanbul": "^0.4.3",
+    "jshint": "^2.9.2",
     "mocha": "^2.4.5"
   }
 }

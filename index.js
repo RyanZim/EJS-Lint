@@ -79,7 +79,7 @@ exports.parse = function(text, options){
   // console.log(scr);
   // ^^^^ enable this to debug wrong line or col numbers
   return scr;
-}
+};
 exports.lint = function(text, opts){
   // parse
   var scr=exports.parse(text, opts);

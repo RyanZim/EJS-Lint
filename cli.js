@@ -15,6 +15,7 @@ var argv=require('yargs')
   .argv;
 var glob=require('glob'),
     fs=require('fs'),
+    read=require('read-input'),
     ejsLint=require('./index.js');
 // INTERNAL FUNCTIONS
 // Read from file & return contents
@@ -58,7 +59,6 @@ if (argv._[0]){
       var arr=[];
       // if matches is a string, turn it into an array
       if(typeof matches==='string'){
-        console.log('string')
         arr[0]=matches;
       } else {
         arr=matches;
@@ -80,13 +80,12 @@ if (argv._[0]){
   }
 } else {
   // else, read from stdin and lint
-  var text='';
-  process.stdin.setEncoding('utf-8');
-  process.stdin.on('readable', () => {
-    var chunk = process.stdin.read();
-    if (chunk !== null) {
-      text+=chunk;
+  read.stdin(function(err, text){
+    if(err){
+      console.error(err);
+      process.exit(1);
+    } else {
+      lint(text);
     }
   });
-  lint(text);
 }
