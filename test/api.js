@@ -1,4 +1,5 @@
 var ejsLint=require('../index.js'),
+    packageJSON=require('../package.json'),
     readFile=require('fs').readFileSync,
     path=require('path'),
     assert=require('assert');
@@ -51,5 +52,10 @@ suite('lint()', function(){
     assert.equal(err.line, 3);
     assert.equal(err.column, 4);
     assert.equal(err.message, 'Unexpected token');
+  });
+});
+suite('misc.', function(){
+  test('EJS version is pinned', function(){
+    assert.equal(packageJSON.dependencies.ejs.search(/[\^~<=>]/), -1);
   });
 });
