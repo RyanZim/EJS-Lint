@@ -1,8 +1,10 @@
-var ejsLint=require('../index.js'),
-    packageJSON=require('../package.json'),
-    readFile=require('fs').readFileSync,
-    path=require('path'),
-    assert=require('assert');
+'use strict';
+/* eslint-env mocha */
+var ejsLint = require('../index.js');
+var packageJSON = require('../package.json');
+var readFile = require('fs').readFileSync;
+var path = require('path');
+var assert = require('assert');
 function fixture(name){
   return readFile(path.join('test/fixtures/', name)).toString();
 }
@@ -48,7 +50,7 @@ suite('lint()', function(){
     assert.equal(ejsLint.lint(fixture('valid.ejs')), undefined);
   });
   test('invalid multi-line file', function(){
-    var err=ejsLint.lint(fixture('invalid.ejs'));
+    var err = ejsLint.lint(fixture('invalid.ejs'));
     assert.equal(err.line, 3);
     assert.equal(err.column, 4);
     assert.equal(err.message, 'Unexpected token');

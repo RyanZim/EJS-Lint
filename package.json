@@ -15,7 +15,7 @@
     "ejslint": "./cli.js"
   },
   "scripts": {
-    "test": "mocha && jshint *.js test/**.js",
+    "test": "mocha && eslint .",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "try": "./cli.js try.ejs"
   },
@@ -29,8 +29,9 @@
     "yargs": "^7.0.1"
   },
   "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-ryanzim": "0.0.2",
     "istanbul": "^0.4.3",
-    "jshint": "^2.9.2",
     "mocha": "^3.0.2"
   }
 }
