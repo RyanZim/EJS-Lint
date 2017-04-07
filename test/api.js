@@ -1,42 +1,50 @@
 'use strict';
 /* eslint-env mocha */
-var ejsLint = require('../index.js');
-var packageJSON = require('../package.json');
-var readFile = require('fs').readFileSync;
-var path = require('path');
-var assert = require('assert');
-function fixture(name){
+const ejsLint = require('../index.js');
+const pkg = require('../package.json');
+const readFile = require('fs').readFileSync;
+const path = require('path');
+const assert = require('assert');
+
+function fixture(name) {
   return readFile(path.join('test/fixtures/', name)).toString();
 }
-// ******************************** //
-suite('ejs-lint', function(){
-  test('empty string', function(){
-    assert.equal(ejsLint(''), undefined);
+
+suite('ejs-lint', () => {
+  test('empty string', () => {
+    assert.equal(ejsLint(''));
   });
-  test('text', function(){
-    assert.equal(ejsLint('abc'), undefined);
+
+  test('text', () => {
+    assert.equal(ejsLint('abc'));
   });
-  test('valid scriptlet', function(){
-    assert.equal(ejsLint('<% foo(); %>'), undefined);
+
+  test('valid scriptlet', () => {
+    assert.equal(ejsLint('<% foo(); %>'));
   });
-  test('old-style include', function(){
-    assert.equal(ejsLint('<% include foo.ejs %>'), undefined);
+
+  test('old-style include', () => {
+    assert.equal(ejsLint('<% include foo.ejs %>'));
   });
-  test('valid multi-line file', function(){
-    assert.equal(ejsLint(fixture('valid.ejs')), undefined);
+
+  test('valid multi-line file', () => {
+    assert.equal(ejsLint(fixture('valid.ejs')));
   });
-  test('invalid multi-line file', function(){
+
+  test('invalid multi-line file', () => {
     var err = ejsLint(fixture('invalid.ejs'));
     assert.equal(err.line, 3);
     assert.equal(err.column, 4);
     assert.equal(err.message, 'Unexpected token');
   });
-  test('EJSLint.lint() is an alias', function(){
+
+  test('EJSLint.lint() is an alias', () => {
     assert.equal(ejsLint, ejsLint.lint);
   });
 });
-suite('misc.', function(){
-  test('EJS version is pinned', function(){
-    assert.equal(packageJSON.dependencies.ejs.search(/[\^~<=>]/), -1);
+
+suite('misc.', () => {
+  test('EJS version is pinned', () => {
+    assert.equal(pkg.dependencies.ejs.search(/[\^~<=>]/), -1);
   });
 });
