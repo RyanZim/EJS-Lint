@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 'use strict';
-var argv = require('yargs')
-  .usage('Usage:\n $0 <file> [-d=?]\n\n If no file is specified, reads from stdin')
-  .option('p', {
-    alias: 'parse',
-    describe: 'Run parse() instead of lint()',
-    type: 'boolean',
-  })
+const argv = require('yargs')
+  .usage(`Usage:\n $0 <file> [-d=?]
+
+  If no file is specified, reads from stdin`)
   .option('d', {
     alias: 'delimiter',
     describe: 'Specify a custom delimiter ( i.e. <? instead of <% )',
@@ -14,82 +11,26 @@ var argv = require('yargs')
   })
   .help()
   .argv;
-var glob = require('glob');
-var fs = require('fs');
-var read = require('read-input');
-var ejsLint = require('./index.js');
-// INTERNAL FUNCTIONS
-// Read from file & return contents
-function getFile(filename){
-  return fs.readFileSync(filename, 'utf8');
-}
-// Lint or parse
-function lint(text, returnErrors){
-  var err;
-  if(argv.parse)
-    console.log(ejsLint.parse(text, opts));
-  else
-    err = ejsLint.lint(text, opts);
+const glob = require('globby').sync;
+const read = require('read-input');
+const ejsLint = require('./index.js');
 
-  if(err)
-    // if error, log it unless returnErrors is true
-    if(!returnErrors){
-      console.log(err.message + '(' + err.line + ':' + err.column + ')');
-    } else {
-      // if returnErrors is true, return the error
-      return err;
+const opts = { delimiter: argv.delimiter };
+read(glob(argv._))
+.then(res => {
+  let errored = false;
+  res.files.forEach(file => {
+    const err = ejsLint(file.data, opts);
+    if (err) {
+      errored = true;
+      let message = `${err.message} (${err.line}:${err.column})`;
+      if (file.name) message += ` in ${file.name}`;
+      console.error(message);
     }
-
-  // exit unless noExit is true
-  if(!returnErrors)
-    process.exit();
-
-}
-// *********************** //
-// Initialize vars
-var opts = {};
-// if --delimiter is specified, set delimiter
-if(argv.delimiter)
-  opts.delimiter = argv.delimiter;
-
-if (argv._[0])
-  // if filename, check for globs
-  if(glob.hasMagic(argv._[0])){
-    // run glob
-    glob(argv._[0], function(err, matches){
-      if(err){
-        console.error(err);
-        process.exit(1);
-      }
-      var arr = [];
-      // if matches is a string, turn it into an array
-      if(typeof matches === 'string')
-        arr[0] = matches;
-      else
-        arr = matches;
-
-      // lint each file
-      arr.forEach(function(filename){
-        // set returnErrors to true and handle errors
-        var err = lint(getFile(filename), true);
-        if(err)
-          console.log(err.message + '(' + err.line + ':' + err.column + ') in ' + filename);
-
-      });
-      // exit when all files are linted
-      process.exit();
-    });
-  } else {
-    // else, just lint
-    lint(getFile(argv._[0]));
-  }
-else
-  // else, read from stdin and lint
-  read.stdin(function(err, text){
-    if(err){
-      console.error(err);
-      process.exit(1);
-    } else
-      lint(text);
-
   });
+  if (errored) process.exit(1);
+})
+.catch(err => {
+  console.error(err);
+  process.exit(1);
+});
