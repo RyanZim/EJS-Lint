@@ -48,9 +48,9 @@ Require:
 ```js
 var ejsLint=require('./path/to/index.js');
 ```
-Then do `ejsLint.lint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
+Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
-`ejsLint.parse(text, options)` is a "plumbing" function that strips away all non-js text and replaces it with whitespace. This may be useful if you wish to use an alternate syntax checker.
+`ejsLint.lint()` is an alias for backwards-compatibility; it will be removed in a future release.
 
 ## Development Notes
 

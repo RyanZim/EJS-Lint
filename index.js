@@ -1,90 +1,56 @@
 'use strict';
-var rewire = require('rewire');
-var ejs = rewire('ejs');
-var EJS_INCLUDE_REGEX = require('ejs-include-regex');
-var check = require('syntax-error');
-// Internal Function
-// Replaces text with whitespace
-function padWhitespace(text){
-  var x;
-  var res = '';
-  // if text contains newlines,
-  // space them properly
-  if(text.indexOf('\n') !== -1)
-    // a crude way of counting newlines
-    text.split('\n').forEach(function(t, n){
-      if(n !== 0)
-        // Add newline
-        res += '\n';
+const rewire = require('rewire');
+const ejs = rewire('ejs');
+const EJS_INCLUDE_REGEX = require('ejs-include-regex');
+const check = require('syntax-error');
 
-      // Pad with whitespace between each newline
-      for(x = 0;x < t.length;x++)
-        res += ' ';
-
-    });
-  else
-    // Only pad with whitespace if no newline
-    for(x = 0;x < text.length;x++)
-      res += ' ';
-
-
-  return res;
-}
-exports.parse = function(text, options){
+function lint (text, opts) {
+  opts = opts || {};
   // Use rewire to access the ejs internal function "Template"
-  var Template = ejs.__get__('Template');
-  var opts = options || {};
-  var temp = new Template(text, opts);
-  // Use ejs to parse the text
-  var arr = temp.parseTemplateText();
-  // console.log(arr);
-  // ^^^^ enable this for development purposes
-  // This allows you to see the values you will be working with below
-  // Initialize variables:
-  // Initialize var to hold the JS-Parseable String
-  var scr = '';
+  const Template = ejs.__get__('Template');
+  const arr = new Template(text, opts).parseTemplateText();
   // Initialize mode var
   // This is used to indicate the status:
   // Inside Scriptlet, mode=1
   // Outside Scriptlet, mode=0
-  var mode;
+  let mode;
   // Initialize delimiter variable
-  var d = opts.delimiter || '%';
-  arr.forEach(function(str){
-    switch(str){
+  const d = opts.delimiter || '%';
+  const js = arr.map(str => {
+    switch (str) {
     case '<' + d:
     case '<' + d + '_':
       mode = 1;
-      scr += padWhitespace(str);
-      break;
+      return padWhitespace(str);
     case d + '>':
     case '-' + d + '>':
     case '_' + d + '>':
       mode = 0;
-      scr += padWhitespace(str);
-      break;
+      return padWhitespace(str);
     case (str.match(EJS_INCLUDE_REGEX) || {}).input:
-        // if old-style include, replace with whitespace
-      scr += padWhitespace(str);
-      break;
+      // if old-style include, replace with whitespace
+      return padWhitespace(str);
     default:
-        // If inside Scriptlet, add to scr
-      if (mode === 1)
-        scr += str;
-      else
-          // else, pad with whitespace
-          scr += padWhitespace(str);
+      // If inside Scriptlet, pass through
+      if (mode === 1) return  str;
+      // else, pad with whitespace
+      return padWhitespace(str);
+    }
+  }).join('');
+  return check(js);
+}
 
-    } // end of switch
-  }); // end of loop
-  // console.log(scr);
-  // ^^^^ enable this to debug wrong line or col numbers
-  return scr;
-};
-exports.lint = function(text, opts){
-  // parse
-  var scr = exports.parse(text, opts);
-  // check for errors
-  var err = check(scr);
-  return err; // if no errors, returns undefined
-};
+module.exports = lint;
+// Backwards compat:
+module.exports.lint = lint;
+
+function padWhitespace(text) {
+  let res = '';
+  text.split('\n').forEach((line, i) => {
+    // Add newline
+    if (i !== 0) res += '\n';
+    // Pad with whitespace between each newline
+    for (let x = 0; x < line.length; x++) res += ' ';
+  });
+  return res;
+}
