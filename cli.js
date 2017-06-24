@@ -17,20 +17,20 @@ const ejsLint = require('./index.js');
 
 const opts = { delimiter: argv.delimiter };
 read(glob(argv._))
-.then(res => {
-  let errored = false;
-  res.files.forEach(file => {
-    const err = ejsLint(file.data, opts);
-    if (err) {
-      errored = true;
-      let message = `${err.message} (${err.line}:${err.column})`;
-      if (file.name) message += ` in ${file.name}`;
-      console.error(message);
-    }
+  .then(res => {
+    let errored = false;
+    res.files.forEach(file => {
+      const err = ejsLint(file.data, opts);
+      if (err) {
+        errored = true;
+        let message = `${err.message} (${err.line}:${err.column})`;
+        if (file.name) message += ` in ${file.name}`;
+        console.error(message);
+      }
+    });
+    if (errored) process.exit(1);
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
   });
-  if (errored) process.exit(1);
-})
-.catch(err => {
-  console.error(err);
-  process.exit(1);
-});
