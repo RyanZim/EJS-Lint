@@ -9,7 +9,6 @@ const argv = require('yargs')
     describe: 'Specify a custom delimiter ( i.e. <? instead of <% )',
     type: 'string',
   })
-  .help()
   .argv;
 const glob = require('globby').sync;
 const read = require('read-input');

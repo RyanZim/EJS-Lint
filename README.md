@@ -38,9 +38,10 @@ Usage:
 
   If no file is specified, reads from stdin
 
-Options:
-  -d, --delimiter  Specify a custom delimiter ( i.e. <? instead of <% ) [string]
-  --help           Show help                                           [boolean]
+  Options:
+    --help           Show help                                           [boolean]
+    --version        Show version number                                 [boolean]
+    -d, --delimiter  Specify a custom delimiter ( i.e. <? instead of <% ) [string]
 ```
 
 ## API
