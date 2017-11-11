@@ -24,7 +24,7 @@
     "ejs-include-regex": "^1.0.0",
     "globby": "^6.1.0",
     "read-input": "^0.3.1",
-    "rewire": "^2.5.1",
+    "rewire": "^3.0.0",
     "syntax-error": "^1.1.6",
     "yargs": "^10.0.3"
   },
