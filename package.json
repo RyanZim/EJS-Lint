@@ -20,7 +20,7 @@
     "try": "./cli.js try.ejs"
   },
   "dependencies": {
-    "ejs": "2.5.7",
+    "ejs": "2.5.8",
     "ejs-include-regex": "^1.0.0",
     "globby": "^6.1.0",
     "read-input": "^0.3.1",
