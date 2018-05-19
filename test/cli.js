@@ -9,7 +9,7 @@ suite('cli', () => {
   test('valid input', done => {
     execFile(ejslint, ['test/fixtures/valid.ejs'], (err, stdout, stderr) => {
       assert.ifError(err);
-      assert.ifError(stderr);
+      assert(!stderr);
       done();
     });
   });
