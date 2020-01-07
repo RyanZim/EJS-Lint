@@ -12,23 +12,23 @@ function fixture(name) {
 
 suite('ejs-lint', () => {
   test('empty string', () => {
-    assert.equal(ejsLint(''));
+    assert.ifError(ejsLint(''));
   });
 
   test('text', () => {
-    assert.equal(ejsLint('abc'));
+    assert.ifError(ejsLint('abc'));
   });
 
   test('valid scriptlet', () => {
-    assert.equal(ejsLint('<% foo(); %>'));
+    assert.ifError(ejsLint('<% foo(); %>'));
   });
 
   test('old-style include', () => {
-    assert.equal(ejsLint('<% include foo.ejs %>'));
+    assert.ifError(ejsLint('<% include foo.ejs %>'));
   });
 
   test('valid multi-line file', () => {
-    assert.equal(ejsLint(fixture('valid.ejs')));
+    assert.ifError(ejsLint(fixture('valid.ejs')));
   });
 
   test('invalid multi-line file', () => {
@@ -39,7 +39,7 @@ suite('ejs-lint', () => {
   });
 
   test('valid <%= expression', () => {
-    assert.equal(ejsLint('<% foo() %><%= bar[42] %><% doz() %>'));
+    assert.ifError(ejsLint('<% foo() %><%= bar[42] %><% doz() %>'));
   });
 
   test('invalid <%= expression', () => {
