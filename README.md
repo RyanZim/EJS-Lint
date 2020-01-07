@@ -8,7 +8,7 @@ This was born out of [mde/ejs #119](https://github.com/mde/ejs/issues/119) and t
 
 ## Features
 
-EJS-Lint parses scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`). It ignores all other tags (i.e. `<%=`).
+EJS-Lint parses scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`) and expression tags (`<%=` and `<%-`).
 
 **Note:** This linter does not attempt to check for unclosed EJS tags, so if you get an error `Unexpected token` with a line number that doesn't contain any scriptlets, you most likely forgot to close a tag earlier.
 

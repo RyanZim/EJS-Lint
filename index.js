@@ -11,7 +11,7 @@ function lint (text, opts) {
   const arr = new Template(text, opts).parseTemplateText();
   // Initialize mode var
   // This is used to indicate the status:
-  // Inside Scriptlet, mode=1
+  // Inside Scriptlet, mode=1 (scriptlet) or mode=2 (expression)
   // Outside Scriptlet, mode=0
   let mode;
   // Initialize delimiter variable
@@ -22,17 +22,22 @@ function lint (text, opts) {
     case '<' + d + '_':
       mode = 1;
       return padWhitespace(str);
+    case '<' + d + '=':
+    case '<' + d + '-':
+      mode = 2;
+      return ';' + padWhitespace(str);
     case d + '>':
     case '-' + d + '>':
     case '_' + d + '>':
+      str = padWhitespace(str) + (mode === 2 ? ';' : '');
       mode = 0;
-      return padWhitespace(str);
+      return str;
     case (str.match(EJS_INCLUDE_REGEX) || {}).input:
       // if old-style include, replace with whitespace
       return padWhitespace(str);
     default:
       // If inside Scriptlet, pass through
-      if (mode === 1) return  str;
+      if (mode) return str;
       // else, pad with whitespace
       return padWhitespace(str);
     }
