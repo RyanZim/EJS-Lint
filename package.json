@@ -30,7 +30,7 @@
     "yargs": "^15.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.1.0",
+    "eslint": "^6.0.0",
     "eslint-config-ryanzim": "0.0.2",
     "mocha": "^7.0.0",
     "nyc": "^15.0.0"
