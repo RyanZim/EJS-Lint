@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 'use strict';
+/* eslint-disable no-console */
 const argv = require('yargs')
-  .usage(`Usage:\n $0 <file> [-d=?]
+  .usage(
+    `Usage:\n $0 <file> [-d=?]
 
-  If no file is specified, reads from stdin`)
+  If no file is specified, reads from stdin`,
+  )
   .option('d', {
     alias: 'delimiter',
     describe: 'Specify a custom delimiter ( i.e. <? instead of <% )',
@@ -12,13 +15,15 @@ const argv = require('yargs')
   .option('preprocessor-include', {
     describe: 'Allow old (pre-EJS v3) preprocessor-style includes',
     type: 'boolean',
-  })
-  .argv;
+  }).argv;
 const glob = require('globby').sync;
 const read = require('read-input');
 const ejsLint = require('./index.js');
 
-const opts = { delimiter: argv.delimiter, preprocessorInclude: argv['preprocessor-include'] };
+const opts = {
+  delimiter: argv.delimiter,
+  preprocessorInclude: argv['preprocessor-include'],
+};
 read(glob(argv._))
   .then(res => {
     let errored = false;

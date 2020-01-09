@@ -4,7 +4,7 @@ const ejs = rewire('ejs');
 const EJS_INCLUDE_REGEX = require('ejs-include-regex');
 const check = require('syntax-error');
 
-function lint (text, opts) {
+function lint(text, opts) {
   opts = opts || {};
   // Use rewire to access the ejs internal function "Template"
   const Template = ejs.__get__('Template');
@@ -16,34 +16,36 @@ function lint (text, opts) {
   let mode;
   // Initialize delimiter variable
   const d = opts.delimiter || '%';
-  const js = arr.map(str => {
-    switch (str) {
-    case '<' + d:
-    case '<' + d + '_':
-      mode = 1;
-      return padWhitespace(str);
-    case '<' + d + '=':
-    case '<' + d + '-':
-      mode = 2;
-      return ';' + padWhitespace(str);
-    case d + '>':
-    case '-' + d + '>':
-    case '_' + d + '>':
-      str = padWhitespace(str) + (mode === 2 ? ';' : '');
-      mode = 0;
-      return str;
-    case (str.match(EJS_INCLUDE_REGEX) || {}).input:
-      // if old-style include
-      // - replace with whitespace if preprocessorInclude is set
-      // - otherwise, leave it intact so it errors out correctly
-      return opts.preprocessorInclude ? padWhitespace(str) : str;
-    default:
-      // If inside Scriptlet, pass through
-      if (mode) return str;
-      // else, pad with whitespace
-      return padWhitespace(str);
-    }
-  }).join('');
+  const js = arr
+    .map(str => {
+      switch (str) {
+        case `<${d}`:
+        case `<${d}_`:
+          mode = 1;
+          return padWhitespace(str);
+        case `<${d}=`:
+        case `<${d}-`:
+          mode = 2;
+          return `;${padWhitespace(str)}`;
+        case `${d}>`:
+        case `-${d}>`:
+        case `_${d}>`:
+          str = padWhitespace(str) + (mode === 2 ? ';' : '');
+          mode = 0;
+          return str;
+        case (str.match(EJS_INCLUDE_REGEX) || {}).input:
+          // if old-style include
+          // - replace with whitespace if preprocessorInclude is set
+          // - otherwise, leave it intact so it errors out correctly
+          return opts.preprocessorInclude ? padWhitespace(str) : str;
+        default:
+          // If inside Scriptlet, pass through
+          if (mode) return str;
+          // else, pad with whitespace
+          return padWhitespace(str);
+      }
+    })
+    .join('');
   return check(js);
 }
 

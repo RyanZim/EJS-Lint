@@ -16,15 +16,22 @@ suite('cli', () => {
   test('invalid input', done => {
     execFile(ejslint, ['test/fixtures/invalid.ejs'], (err, stdout, stderr) => {
       assert.equal(err.code, 1, 'expected exit code of 1');
-      assert.equal(stderr.trim(), 'Unexpected token (3:4) in test/fixtures/invalid.ejs');
+      assert.equal(
+        stderr.trim(),
+        'Unexpected token (3:4) in test/fixtures/invalid.ejs',
+      );
       done();
     });
   });
   test('--preprocessor-include option', done => {
-    execFile(ejslint, ['test/fixtures/preprocessor.ejs', '--preprocessor-include'], (err, stdout, stderr) => {
-      assert.ifError(err);
-      assert(!stderr);
-      done();
-    });
+    execFile(
+      ejslint,
+      ['test/fixtures/preprocessor.ejs', '--preprocessor-include'],
+      (err, stdout, stderr) => {
+        assert.ifError(err);
+        assert(!stderr);
+        done();
+      },
+    );
   });
 });

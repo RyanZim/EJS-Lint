@@ -47,9 +47,11 @@ Usage:
 ## API
 
 Require:
+
 ```js
 const ejsLint = require('ejs-lint');
 ```
+
 Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
 `ejsLint.lint()` is an alias for backwards-compatibility; it will be removed in a future release.
