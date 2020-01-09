@@ -20,7 +20,7 @@
     "prettier": "prettier **/*.{js,md}",
     "test": "npm run unit && npm run lint",
     "try": "./cli.js try.ejs",
-    "unit": "nyc --check-coverage mocha"
+    "unit": "nyc --check-coverage mocha --ui tdd --check-leaks"
   },
   "dependencies": {
     "ejs": "3.0.1",
