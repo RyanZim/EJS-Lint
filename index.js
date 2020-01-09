@@ -4,8 +4,7 @@ const ejs = rewire('ejs');
 const EJS_INCLUDE_REGEX = require('ejs-include-regex');
 const check = require('syntax-error');
 
-function lint(text, opts) {
-  opts = opts || {};
+function lint(text, opts = {}) {
   // Use rewire to access the ejs internal function "Template"
   const Template = ejs.__get__('Template');
   const arr = new Template(text, opts).parseTemplateText();
