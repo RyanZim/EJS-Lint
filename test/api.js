@@ -56,10 +56,6 @@ suite('ejs-lint', () => {
     const err = ejsLint('<%= foo[ %>');
     assert.equal(err.message, 'Unexpected token');
   });
-
-  test('EJSLint.lint() is an alias', () => {
-    assert.equal(ejsLint, ejsLint.lint);
-  });
 });
 
 suite('misc.', () => {
