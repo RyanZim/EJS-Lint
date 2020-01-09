@@ -33,8 +33,10 @@ function lint (text, opts) {
       mode = 0;
       return str;
     case (str.match(EJS_INCLUDE_REGEX) || {}).input:
-      // if old-style include, replace with whitespace
-      return padWhitespace(str);
+      // if old-style include
+      // - replace with whitespace if preprocessorInclude is set
+      // - otherwise, leave it intact so it errors out correctly
+      return opts.preprocessorInclude ? padWhitespace(str) : str;
     default:
       // If inside Scriptlet, pass through
       if (mode) return str;

@@ -20,4 +20,11 @@ suite('cli', () => {
       done();
     });
   });
+  test('--preprocessor-include option', done => {
+    execFile(ejslint, ['test/fixtures/preprocessor.ejs', '--preprocessor-include'], (err, stdout, stderr) => {
+      assert.ifError(err);
+      assert(!stderr);
+      done();
+    });
+  });
 });

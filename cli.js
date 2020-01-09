@@ -9,12 +9,16 @@ const argv = require('yargs')
     describe: 'Specify a custom delimiter ( i.e. <? instead of <% )',
     type: 'string',
   })
+  .option('preprocessor-include', {
+    describe: 'Allow old (pre-EJS v3) preprocessor-style includes',
+    type: 'boolean',
+  })
   .argv;
 const glob = require('globby').sync;
 const read = require('read-input');
 const ejsLint = require('./index.js');
 
-const opts = { delimiter: argv.delimiter };
+const opts = { delimiter: argv.delimiter, preprocessorInclude: argv['preprocessor-include'] };
 read(glob(argv._))
   .then(res => {
     let errored = false;

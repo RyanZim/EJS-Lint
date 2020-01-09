@@ -23,8 +23,16 @@ suite('ejs-lint', () => {
     assert.ifError(ejsLint('<% foo(); %>'));
   });
 
-  test('old-style include', () => {
-    assert.ifError(ejsLint('<% include foo.ejs %>'));
+  suite('old-style include', () => {
+    test('without preprocessorInclude set', () => {
+      var err = ejsLint('<% include foo.ejs %>');
+      assert.equal(err.line, 1);
+      assert.equal(err.column, 12);
+      assert.equal(err.message, 'Unexpected token');
+    });
+    test('with preprocessorInclude set', () => {
+      assert.ifError(ejsLint('<% include foo.ejs %>', { preprocessorInclude: true }));
+    });
   });
 
   test('valid multi-line file', () => {
