@@ -1,10 +1,8 @@
 # EJS-Lint
 
-Linter/Syntax Checker for EJS Templates.
+Linter/Syntax Checker for [EJS Templates](https://github.com/mde/ejs).
 
 This was born out of [mde/ejs #119](https://github.com/mde/ejs/issues/119) and the frustration of the unhelpful errors thrown if you make a simple syntax error inside a scriptlet tag.
-
-**During this pre-v1.0.0 stage, we promise not to break backwards-compatibility in a PATCH version bump.**
 
 ## Features
 
@@ -12,7 +10,7 @@ EJS-Lint parses scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`) and express
 
 **Note:** This linter does not attempt to check for unclosed EJS tags, so if you get an error `Unexpected token` with a line number that doesn't contain any scriptlets, you most likely forgot to close a tag earlier.
 
-It also is set up to handle old-style `include`s (`<% include filename %>`) by ignoring them. It does not lint included files regardless of the method of inclusion.
+It will error out if it encounters an old-style `include`s (`<% include filename %>`) by default, but will tolerate them if the `--preprocessor-include`/`preprocessorInclude` option is set. It does not lint included files regardless of the method of inclusion.
 
 It can work with custom delimiters, just pass it in the options (if using the API) or pass the `--delimiter` (`-d`) flag on the CLI.
 
@@ -38,10 +36,11 @@ Usage:
 
   If no file is specified, reads from stdin
 
-  Options:
-    --help           Show help                                           [boolean]
-    --version        Show version number                                 [boolean]
-    -d, --delimiter  Specify a custom delimiter ( i.e. <? instead of <% ) [string]
+Options:
+  --help                  Show help                                            [boolean]
+  --version               Show version number                                  [boolean]
+  -d, --delimiter         Specify a custom delimiter ( i.e. <? instead of <% ) [string]
+  --preprocessor-include  Allow old (pre-EJS v3) preprocessor-style includes   [boolean]
 ```
 
 ## API
@@ -52,9 +51,7 @@ Require:
 const ejsLint = require('ejs-lint');
 ```
 
-Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options. This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
-
-`ejsLint.lint()` is an alias for backwards-compatibility; it will be removed in a future release.
+Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options (can additionally set `preprocessorInclude` to allow for old-style includes). This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
 ## License
 
