@@ -1,5 +1,3 @@
-extends: ryanzim
+extends: problems
 env:
   node: true
-rules:
-  no-console: off

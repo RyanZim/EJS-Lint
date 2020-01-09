@@ -6,12 +6,12 @@ Please take a moment to review the guidelines below.
 
 Please respect the following rules:
 
-* Please **do not** derail or troll issues or PR's. Keep the discussion on topic and
+- Please **do not** derail or troll issues or PR's. Keep the discussion on topic and
   respect the opinions of others.
 
-* Please **do not** post comments consisting solely of "+1" or ":thumbsup:". Use [GitHub's "reactions" feature](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments) instead. We will delete comments that violate this rule.
+- Please **do not** post comments consisting solely of "+1" or ":thumbsup:". Use [GitHub's "reactions" feature](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments) instead. We will delete comments that violate this rule.
 
-* **Absolutely No** foul language, swearing, or name-calling. Comments that violate this rule will be edited to remove the offensive language or deleted by the moderators.
+- **Absolutely No** foul language, swearing, or name-calling. Comments that violate this rule will be edited to remove the offensive language or deleted by the moderators.
 
 ## Bug reports
 
@@ -21,7 +21,7 @@ Guidelines for bug reports:
 
 0. Make sure the issue isn't caused by an error in your own code.
 1. Please search to make sure the issue hasn't already been reported by someone else.
-2. Make sure you can reproduce the issue using the current `master` branch. The issue may have been fixed since the last release.
+1. Make sure you can reproduce the issue using the current `master` branch. The issue may have been fixed since the last release.
 
 Please try to be extremely detailed in your report. List the **exact** steps to reproduce the issue. If you can include tests, that would be great!
 
