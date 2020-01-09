@@ -33,8 +33,6 @@ Good pull requests are a great help to the project.
 
 Please run `npm test` to test your changes before submitting a PR.
 
-**We have 100% code coverage and we would like it to stay that way;** please include tests when adding a new feature. Run `npm run cover` to generate the coverage report. The report will output to `coverage/lcov-report/index.html`.
-
 **IMPORTANT**: By submitting a patch, you agree to allow the project owners to license your work under the terms of the [MIT License](LICENSE).
 
 ## Labels
