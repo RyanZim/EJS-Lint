@@ -25,9 +25,9 @@ const opts = {
   preprocessorInclude: argv['preprocessor-include'],
 };
 read(glob(argv._))
-  .then(res => {
+  .then((res) => {
     let errored = false;
-    res.files.forEach(file => {
+    res.files.forEach((file) => {
       const err = ejsLint(file.data, opts);
       if (err) {
         errored = true;
@@ -38,7 +38,7 @@ read(glob(argv._))
     });
     if (errored) process.exit(1);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });

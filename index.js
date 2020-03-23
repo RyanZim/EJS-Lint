@@ -16,7 +16,7 @@ module.exports = function lint(text, opts = {}) {
   // Initialize delimiter variable
   const d = opts.delimiter || '%';
   const js = arr
-    .map(str => {
+    .map((str) => {
       switch (str) {
         case `<${d}`:
         case `<${d}_`:

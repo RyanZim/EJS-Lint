@@ -6,14 +6,14 @@ const path = require('path');
 const ejslint = path.resolve('cli.js');
 
 suite('cli', () => {
-  test('valid input', done => {
+  test('valid input', (done) => {
     execFile(ejslint, ['test/fixtures/valid.ejs'], (err, stdout, stderr) => {
       assert.ifError(err);
       assert(!stderr);
       done();
     });
   });
-  test('invalid input', done => {
+  test('invalid input', (done) => {
     execFile(ejslint, ['test/fixtures/invalid.ejs'], (err, stdout, stderr) => {
       assert.equal(err.code, 1, 'expected exit code of 1');
       assert.equal(
@@ -23,7 +23,7 @@ suite('cli', () => {
       done();
     });
   });
-  test('--preprocessor-include option', done => {
+  test('--preprocessor-include option', (done) => {
     execFile(
       ejslint,
       ['test/fixtures/preprocessor.ejs', '--preprocessor-include'],
