@@ -19,6 +19,8 @@ const argv = require('yargs')
 const glob = require('globby').sync;
 const read = require('read-input');
 const ejsLint = require('./index.js');
+const path = require('path');
+const fs = require('fs');
 
 const opts = {
   delimiter: argv.delimiter,
@@ -32,8 +34,12 @@ read(glob(argv._))
       if (err) {
         errored = true;
         let message = `${err.message} (${err.line}:${err.column})`;
-        if (file.name) message += ` in ${file.name}`;
+        if (file.name) {
+          message += ` in ${file.name}`;
+          message += '\n' + errorContext(err, file);
+        }
         console.error(message);
+
       }
     });
     if (errored) process.exit(1);
@@ -42,3 +48,13 @@ read(glob(argv._))
     console.error(err);
     process.exit(1);
   });
+
+  function errorContext(err, file = undefined) {
+    const colors = require('colors');
+    let lines = file.data.split(/\r?\n/);
+    let lineText = lines[err.line - 1];
+    let before = lineText.substr(0, err.column - 1);
+    let during = lineText.substr(err.column - 1 , 1);
+    let after = lineText.substr(err.column);
+    return before + during.bgRed + after;
+  }
