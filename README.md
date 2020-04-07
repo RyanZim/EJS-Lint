@@ -16,8 +16,10 @@ It can work with custom delimiters, just pass it in the options (if using the AP
 
 ## Installation
 
+To install globally, for command-line use:
+
 ```bash
-npm install ejs-lint
+npm install -g ejs-lint
 ```
 
 ## How it Works
