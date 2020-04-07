@@ -23,6 +23,7 @@
     "unit": "nyc --check-coverage mocha --ui tdd --check-leaks"
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "ejs": "3.0.1",
     "ejs-include-regex": "^1.0.0",
     "globby": "^11.0.0",
