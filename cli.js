@@ -18,7 +18,7 @@ const argv = require('yargs')
   }).argv;
 const glob = require('globby').sync;
 const read = require('read-input');
-// const chalk = require('chalk');
+const chalk = require('chalk');
 const ejsLint = require('./index.js');
 
 const opts = {
@@ -50,11 +50,8 @@ function errorContext(err, file) {
   const lines = file.data.split(/\r?\n/);
   const lineText = lines[err.line - 1];
   const before = lineText.substr(0, err.column - 1);
-  const during = lineText.substr(err.column - 1, 1);
+  const duringText = lineText.substr(err.column - 1, 1);
+  const during = chalk.bgRed(duringText);
   const after = lineText.substr(err.column);
-  const startRed = '\u001b[41m';
-  const endRed = '\u001b[49m';
-  // const highlightedError = chalk.bgRed(during);
-  // return before + highlightedError + after;
-  return before + startRed + during + endRed +after;
+  return before + during + after;
 }
