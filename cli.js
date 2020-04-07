@@ -39,7 +39,6 @@ read(glob(argv._))
           message += '\n' + errorContext(err, file);
         }
         console.error(message);
-
       }
     });
     if (errored) process.exit(1);
