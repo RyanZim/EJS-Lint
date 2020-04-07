@@ -48,7 +48,6 @@ read(glob(argv._))
 
 function errorContext(err, file) {
   require('colors');
-  console.error(file);
   const lines = file.data.split(/\r?\n/);
   const lineText = lines[err.line - 1];
   const before = lineText.substr(0, err.column - 1);
