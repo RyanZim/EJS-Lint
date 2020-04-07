@@ -20,6 +20,8 @@ const argv = require('yargs')
 const glob = require('globby').sync;
 const read = require('read-input');
 const ejsLint = require('./index.js');
+const path = require('path');
+const fs = require('fs');
 
 const opts = {
   delimiter: argv.delimiter,
@@ -36,6 +38,7 @@ read(glob(argv._))
         if (file.name) message += ` in ${file.name}`;
         message += `\n${errorContext(err, file)}`;
         console.error(message);
+
       }
     });
     if (errored) process.exit(1);
