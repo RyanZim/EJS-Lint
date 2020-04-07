@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict';
+require('colors');
 /* eslint-disable no-console */
 const argv = require('yargs')
   .usage(
@@ -33,6 +34,7 @@ read(glob(argv._))
         errored = true;
         let message = `${err.message} (${err.line}:${err.column})`;
         if (file.name) message += ` in ${file.name}`;
+        message += `\n${errorContext(err, file)}`;
         console.error(message);
       }
     });
@@ -42,3 +44,12 @@ read(glob(argv._))
     console.error(err);
     process.exit(1);
   });
+
+function errorContext(err, file) {
+  const lines = file.data.split(/\r?\n/);
+  const lineText = lines[err.line - 1];
+  const before = lineText.substr(0, err.column - 1);
+  const during = lineText.substr(err.column - 1, 1);
+  const after = lineText.substr(err.column);
+  return before + during.bgRed + after;
+}
