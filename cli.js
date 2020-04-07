@@ -20,8 +20,6 @@ const argv = require('yargs')
 const glob = require('globby').sync;
 const read = require('read-input');
 const ejsLint = require('./index.js');
-const path = require('path');
-const fs = require('fs');
 
 const opts = {
   delimiter: argv.delimiter,
