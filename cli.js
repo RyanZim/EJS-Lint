@@ -34,8 +34,8 @@ read(glob(argv._))
         let message = `${err.message} (${err.line}:${err.column})`;
         if (file.name) {
           message += ` in ${file.name}`;
-          message += `\n${errorContext(err, file)}`;
         }
+        message += `\n${errorContext(err, file)}`;
         console.error(message);
       }
     });
@@ -46,8 +46,9 @@ read(glob(argv._))
     process.exit(1);
   });
 
-function errorContext(err, file = undefined) {
+function errorContext(err, file) {
   require('colors');
+  console.error(file);
   const lines = file.data.split(/\r?\n/);
   const lineText = lines[err.line - 1];
   const before = lineText.substr(0, err.column - 1);
