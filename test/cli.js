@@ -4,7 +4,7 @@ const assert = require('assert');
 const execFile = require('child_process').execFile;
 const path = require('path');
 const ejslint = path.resolve('cli.js');
-const colors = require('colors');
+require('colors');
 
 suite('cli', () => {
   test('valid input', (done) => {
@@ -16,11 +16,11 @@ suite('cli', () => {
   });
   test('invalid input', (done) => {
     execFile(ejslint, ['test/fixtures/invalid.ejs'], (err, stdout, stderr) => {
-      let expectedContext = '\n<% ' + ']'.bgRed + ' %>'
+      const expectedContext = `\n<% ${']'.bgRed} %>`;
       assert.equal(err.code, 1, 'expected exit code of 1');
       assert.equal(
         stderr.trim(),
-        'Unexpected token (3:4) in test/fixtures/invalid.ejs' + expectedContext,
+        `Unexpected token (3:4) in test/fixtures/invalid.ejs${expectedContext}`,
       );
       done();
     });
