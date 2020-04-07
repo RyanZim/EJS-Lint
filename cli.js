@@ -48,12 +48,12 @@ read(glob(argv._))
     process.exit(1);
   });
 
-  function errorContext(err, file = undefined) {
-    const colors = require('colors');
-    let lines = file.data.split(/\r?\n/);
-    let lineText = lines[err.line - 1];
-    let before = lineText.substr(0, err.column - 1);
-    let during = lineText.substr(err.column - 1 , 1);
-    let after = lineText.substr(err.column);
-    return before + during.bgRed + after;
-  }
+function errorContext(err, file = undefined) {
+  const colors = require('colors');
+  let lines = file.data.split(/\r?\n/);
+  let lineText = lines[err.line - 1];
+  let before = lineText.substr(0, err.column - 1);
+  let during = lineText.substr(err.column - 1, 1);
+  let after = lineText.substr(err.column);
+  return before + during.bgRed + after;
+}
