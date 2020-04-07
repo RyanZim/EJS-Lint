@@ -18,6 +18,7 @@ const argv = require('yargs')
   }).argv;
 const glob = require('globby').sync;
 const read = require('read-input');
+const chalk = require('chalk');
 const ejsLint = require('./index.js');
 
 const opts = {
@@ -33,6 +34,7 @@ read(glob(argv._))
         errored = true;
         let message = `${err.message} (${err.line}:${err.column})`;
         if (file.name) message += ` in ${file.name}`;
+        message += `\n${errorContext(err, file)}`;
         console.error(message);
       }
     });
@@ -42,3 +44,24 @@ read(glob(argv._))
     console.error(err);
     process.exit(1);
   });
+
+function errorContext(err, file) {
+  const lines = file.data.split(/\r?\n/);
+  const lineText = lines[err.line - 1];
+  const before = lineText.substr(0, err.column - 1);
+  const duringText = lineText.substr(err.column - 1, 1);
+  const during = chalk.bgRed(duringText);
+  const after = lineText.substr(err.column);
+  const caret = '^';
+  const lineBreak = '\n';
+  const caretLine = addSpaces(err.column - 1) + caret;
+  return before + during + after + lineBreak + caretLine;
+}
+
+function addSpaces(n) {
+  let str = '';
+  for (let i = 0; i < n; i++) {
+    str += ' ';
+  }
+  return str;
+}
