@@ -4,7 +4,7 @@ const assert = require('assert');
 const execFile = require('child_process').execFile;
 const path = require('path');
 const ejslint = path.resolve('cli.js');
-require('colors');
+const colors = require('colors');
 
 suite('cli', () => {
   test('valid input', (done) => {
