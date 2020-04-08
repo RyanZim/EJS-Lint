@@ -28,7 +28,7 @@ const ejsLint = require('./index.js');
 const opts = {
   delimiter: argv.delimiter,
   preprocessorInclude: argv['preprocessor-include'],
-  context: argv['context'],
+  context: argv.context,
 };
 read(glob(argv._))
   .then((res) => {
