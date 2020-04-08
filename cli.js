@@ -15,6 +15,10 @@ const argv = require('yargs')
   .option('preprocessor-include', {
     describe: 'Allow old (pre-EJS v3) preprocessor-style includes',
     type: 'boolean',
+  })
+  .option('no-context', {
+    describe: 'Show only the error message, without the line of errored code',
+    type: 'boolean'
   }).argv;
 const glob = require('globby').sync;
 const read = require('read-input');
@@ -24,6 +28,7 @@ const ejsLint = require('./index.js');
 const opts = {
   delimiter: argv.delimiter,
   preprocessorInclude: argv['preprocessor-include'],
+  context: argv['context'],
 };
 read(glob(argv._))
   .then((res) => {
@@ -34,9 +39,8 @@ read(glob(argv._))
         errored = true;
         let message = `${err.message} (${err.line}:${err.column})`;
         if (file.name) message += ` in ${file.name}`;
-        message += `\n${errorContext(err, file)}`;
+        if (opts.context === undefined) message += `\n${errorContext(err, file)}`;
         console.error(message);
-
       }
     });
     if (errored) process.exit(1);

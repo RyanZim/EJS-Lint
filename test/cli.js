@@ -24,6 +24,16 @@ suite('cli', () => {
       done();
     });
   });
+  test('invalid input --no-context option', (done) => {
+    execFile(ejslint, ['test/fixtures/invalid.ejs', '--no-context'], (err, stdout, stderr) => {
+      assert.equal(err.code, 1, 'expected exit code of 1');
+      assert.equal(
+        stderr.trim(),
+        `Unexpected token (3:4) in test/fixtures/invalid.ejs`,
+      );
+      done();
+    });
+  });
   test('--preprocessor-include option', (done) => {
     execFile(
       ejslint,
