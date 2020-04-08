@@ -15,7 +15,7 @@ suite('cli', () => {
   });
   test('invalid input', (done) => {
     execFile(ejslint, ['test/fixtures/invalid.ejs'], (err, stdout, stderr) => {
-      const expectedContext = `\n<% ] %>`;
+      const expectedContext = `\n<% ] %>\n   ^`;
       assert.equal(err.code, 1, 'expected exit code of 1');
       assert.equal(
         stderr.trim(),

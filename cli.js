@@ -53,5 +53,16 @@ function errorContext(err, file) {
   const duringText = lineText.substr(err.column - 1, 1);
   const during = chalk.bgRed(duringText);
   const after = lineText.substr(err.column);
-  return before + during + after;
+  const caret = '^';
+  const lineBreak = '\n';
+  const caretLine = addSpaces(err.column - 1) + caret;
+  return before + during + after + lineBreak +caretLine;
+}
+
+function addSpaces(n) {
+  let str = '';
+  for (let i=0; i<n; i++) {
+    str += ' ';
+  }
+  return str;
 }
