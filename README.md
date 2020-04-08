@@ -43,6 +43,7 @@ Options:
   --version               Show version number                                  [boolean]
   -d, --delimiter         Specify a custom delimiter ( i.e. <? instead of <% ) [string]
   --preprocessor-include  Allow old (pre-EJS v3) preprocessor-style includes   [boolean]
+  --no-context            Show only the error message, without errored code    [boolean]
 ```
 
 ## API
