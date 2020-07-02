@@ -36,7 +36,7 @@
   "devDependencies": {
     "eslint": "^6.0.0",
     "eslint-config-problems": "^4.0.0",
-    "mocha": "^7.0.0",
+    "mocha": "^8.0.0",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0"
   },
