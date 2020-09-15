@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-env mocha */
 const assert = require('assert');
-const execFile = require('child_process').execFile;
+const { execFile } = require('child_process');
 const path = require('path');
 const ejslint = path.resolve('cli.js');
 

@@ -34,8 +34,8 @@
     "yargs": "^15.0.0"
   },
   "devDependencies": {
-    "eslint": "^6.0.0",
-    "eslint-config-problems": "^4.0.0",
+    "eslint": "^7.9.0",
+    "eslint-config-problems": "^5.0.0",
     "mocha": "^8.0.0",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0"

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 /* eslint-disable no-console */
-const argv = require('yargs')
+const { argv } = require('yargs')
   .usage(
     `Usage:\n $0 <file> [-d=?]
 
@@ -15,7 +15,7 @@ const argv = require('yargs')
   .option('preprocessor-include', {
     describe: 'Allow old (pre-EJS v3) preprocessor-style includes',
     type: 'boolean',
-  }).argv;
+  });
 const glob = require('globby').sync;
 const read = require('read-input');
 const chalk = require('chalk');
