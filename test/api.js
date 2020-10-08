@@ -45,9 +45,7 @@ suite('ejs-lint', () => {
       assert.equal(err.message, 'Unexpected token');
     });
     test('with await set', () => {
-      assert.ifError(
-        ejsLint('<% await foo %>', { await: true }),
-      );
+      assert.ifError(ejsLint('<% await foo %>', { await: true }));
     });
   });
 

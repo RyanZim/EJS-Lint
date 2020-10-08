@@ -57,7 +57,7 @@ const ejsLint = require('ejs-lint');
 ```
 
 Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options (can additionally set `preprocessorInclude` to
- allow for old-style includes or set `await` to allow usage of await inside the template).
+allow for old-style includes or set `await` to allow usage of await inside the template).
 This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
 ## License
