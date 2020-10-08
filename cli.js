@@ -16,7 +16,7 @@ const { argv } = require('yargs')
     describe: 'Allow old (pre-EJS v3) preprocessor-style includes',
     type: 'boolean',
   })
-  .option('await', {
+  .option('allow-await', {
     describe: 'Allow usage of await in template',
     type: 'boolean',
   });
@@ -28,7 +28,7 @@ const ejsLint = require('./index.js');
 const opts = {
   delimiter: argv.delimiter,
   preprocessorInclude: argv['preprocessor-include'],
-  await: argv.await,
+  await: argv['allow-await'],
 };
 read(glob(argv._))
   .then((res) => {

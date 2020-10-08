@@ -46,7 +46,7 @@ suite('ejs-lint', () => {
     });
     test('with await set', () => {
       assert.ifError(
-        ejsLint('<$ await foo %>', { await: true }),
+        ejsLint('<% await foo %>', { await: true }),
       );
     });
   });

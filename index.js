@@ -48,7 +48,7 @@ module.exports = function lint(text, opts = {}) {
   const checkOptions = {
     allowAwaitOutsideFunction: opts.await || false,
   };
-  return check(js, checkOptions);
+  return check(js, undefined, checkOptions);
 };
 
 function padWhitespace(text) {
