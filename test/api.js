@@ -42,7 +42,7 @@ suite('ejs-lint', () => {
       const err = ejsLint('<% await foo() %>');
       assert.equal(err.line, 1);
       assert.equal(err.column, 10);
-      assert.equal(err.column, 'Unexpected token');
+      assert.equal(err.message, 'Unexpected token');
     });
     test('with await set', () => {
       assert.ifError(
