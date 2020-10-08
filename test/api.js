@@ -37,6 +37,20 @@ suite('ejs-lint', () => {
     });
   });
 
+  suite('await in template', () => {
+    test('without await set', () => {
+      const err = ejsLint('<% await foo() %>');
+      assert.equal(err.line, 1);
+      assert.equal(err.column, 10);
+      assert.equal(err.column, 'Unexpected token');
+    });
+    test('with await set', () => {
+      assert.ifError(
+        ejsLint('<$ await foo %>', { await: true }),
+      );
+    });
+  });
+
   test('valid multi-line file', () => {
     assert.ifError(ejsLint(fixture('valid.ejs')));
   });
