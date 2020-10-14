@@ -46,7 +46,7 @@ module.exports = function lint(text, opts = {}) {
     })
     .join('');
   const checkOptions = {
-    allowAwaitOutsideFunction: opts.await || false,
+    allowAwaitOutsideFunction: !!opts.await,
   };
   return check(js, undefined, checkOptions);
 };
