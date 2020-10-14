@@ -1,13 +1,10 @@
 'use strict';
-const rewire = require('rewire');
-const ejs = rewire('ejs');
+const ejs = require("ejs");
 const EJS_INCLUDE_REGEX = require('ejs-include-regex');
 const check = require('syntax-error');
 
 module.exports = function lint(text, opts = {}) {
-  // Use rewire to access the ejs internal function "Template"
-  const Template = ejs.__get__('Template');
-  const arr = new Template(text, opts).parseTemplateText();
+  const arr = new ejs.Template(text, opts).parseTemplateText();
   // Initialize mode var
   // This is used to indicate the status:
   // Inside Scriptlet, mode=1 (scriptlet) or mode=2 (expression)
