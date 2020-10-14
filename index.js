@@ -1,5 +1,5 @@
 'use strict';
-const ejs = require("ejs");
+const ejs = require('ejs');
 const EJS_INCLUDE_REGEX = require('ejs-include-regex');
 const check = require('syntax-error');
 
