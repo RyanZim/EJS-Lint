@@ -35,4 +35,15 @@ suite('cli', () => {
       },
     );
   });
+  test('--await option', (done) => {
+    execFile(
+      ejslint,
+      ['test/fixtures/await.ejs', '--await'],
+      (err, stdout, stderr) => {
+        assert.ifError(err);
+        assert(!stderr);
+        done();
+      },
+    );
+  });
 });

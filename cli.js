@@ -15,6 +15,10 @@ const { argv } = require('yargs')
   .option('preprocessor-include', {
     describe: 'Allow old (pre-EJS v3) preprocessor-style includes',
     type: 'boolean',
+  })
+  .option('await', {
+    describe: 'Allow usage of await in template',
+    type: 'boolean',
   });
 const glob = require('globby').sync;
 const read = require('read-input');
@@ -24,6 +28,7 @@ const ejsLint = require('./index.js');
 const opts = {
   delimiter: argv.delimiter,
   preprocessorInclude: argv['preprocessor-include'],
+  await: argv.await,
 };
 read(glob(argv._))
   .then((res) => {

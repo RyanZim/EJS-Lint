@@ -12,6 +12,8 @@ EJS-Lint parses scriptlet tags (`<%`, `%>`, `<%_`, `_%>`, and `-%>`) and express
 
 It will error out if it encounters an old-style `include`s (`<% include filename %>`) by default, but will tolerate them if the `--preprocessor-include`/`preprocessorInclude` option is set. It does not lint included files regardless of the method of inclusion.
 
+Using `await` inside your ejs template will also throw an error by default - use option `--await`/`await` to allow usage of `await` in the template.
+
 It can work with custom delimiters, just pass it in the options (if using the API) or pass the `--delimiter` (`-d`) flag on the CLI.
 
 ## Installation
@@ -43,6 +45,7 @@ Options:
   --version               Show version number                                  [boolean]
   -d, --delimiter         Specify a custom delimiter ( i.e. <? instead of <% ) [string]
   --preprocessor-include  Allow old (pre-EJS v3) preprocessor-style includes   [boolean]
+  --await                 Allow usage of await inside template                 [boolean]
 ```
 
 ## API
@@ -53,7 +56,9 @@ Require:
 const ejsLint = require('ejs-lint');
 ```
 
-Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options (can additionally set `preprocessorInclude` to allow for old-style includes). This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
+Then do `ejsLint(text, options)`; where `text` is the EJS template and `options` are the EJS options (can additionally set `preprocessorInclude` to
+allow for old-style includes or set `await` to allow usage of await inside the template).
+This returns a [node-syntax-error object](https://github.com/substack/node-syntax-error#attributes) that you can parse.
 
 ## License
 
