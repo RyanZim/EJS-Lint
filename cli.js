@@ -21,6 +21,7 @@ const { argv } = require('yargs')
     type: 'boolean',
   });
 const glob = require('globby').sync;
+const slash = require('slash');
 const read = require('read-input');
 const chalk = require('chalk');
 const ejsLint = require('./index.js');
@@ -30,7 +31,7 @@ const opts = {
   preprocessorInclude: argv['preprocessor-include'],
   await: argv.await,
 };
-read(glob(argv._))
+read(glob(argv._.map(s => slash(s))))
   .then((res) => {
     let errored = false;
     res.files.forEach((file) => {
