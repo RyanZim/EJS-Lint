@@ -31,7 +31,7 @@ const opts = {
   preprocessorInclude: argv['preprocessor-include'],
   await: argv.await,
 };
-read(glob(argv._.map(s => slash(s))))
+read(glob(argv._.map((s) => slash(s))))
   .then((res) => {
     let errored = false;
     res.files.forEach((file) => {
