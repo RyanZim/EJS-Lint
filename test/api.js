@@ -1,13 +1,11 @@
-'use strict';
 /* eslint-env mocha */
-const ejsLint = require('../index.js');
-const pkg = require('../package.json');
-const readFile = require('fs').readFileSync;
-const path = require('path');
-const assert = require('assert');
+import ejsLint from '../index.js';
+import { readFileSync } from 'fs';
+import path from 'path';
+import assert from 'assert';
 
 function fixture(name) {
-  return readFile(path.join('test/fixtures/', name)).toString();
+  return readFileSync(path.join('test/fixtures/', name)).toString();
 }
 
 suite('ejs-lint', () => {
@@ -67,11 +65,5 @@ suite('ejs-lint', () => {
   test('invalid <%= expression', () => {
     const err = ejsLint('<%= foo[ %>');
     assert.equal(err.message, 'Unexpected token');
-  });
-});
-
-suite('misc.', () => {
-  test('EJS version is pinned', () => {
-    assert.equal(pkg.dependencies.ejs.search(/[\^~<=>]/), -1);
   });
 });
