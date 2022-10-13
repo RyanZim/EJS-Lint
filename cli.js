@@ -1,7 +1,13 @@
 #!/usr/bin/env node
-'use strict';
 /* eslint-disable no-console */
-const { argv } = require('yargs')
+import yargs from 'yargs';
+import { globbySync } from 'globby';
+import slash from 'slash';
+import read from 'read-input';
+import chalk from 'chalk';
+import ejsLint from './index.js';
+
+const { argv } = yargs(process.argv.slice(2))
   .usage(
     `Usage:\n $0 <file> [-d=?]
 
@@ -20,18 +26,13 @@ const { argv } = require('yargs')
     describe: 'Allow usage of await in template',
     type: 'boolean',
   });
-const glob = require('globby').sync;
-const slash = require('slash');
-const read = require('read-input');
-const chalk = require('chalk');
-const ejsLint = require('./index.js');
 
 const opts = {
   delimiter: argv.delimiter,
   preprocessorInclude: argv['preprocessor-include'],
   await: argv.await,
 };
-read(glob(argv._.map((s) => slash(s))))
+read(globbySync(argv._.map((s) => slash(s))))
   .then((res) => {
     let errored = false;
     res.files.forEach((file) => {

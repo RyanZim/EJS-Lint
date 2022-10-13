@@ -1,9 +1,8 @@
-'use strict';
-const ejs = require('ejs');
-const EJS_INCLUDE_REGEX = require('ejs-include-regex');
-const check = require('syntax-error');
+import ejs from 'ejs';
+import EJS_INCLUDE_REGEX from 'ejs-include-regex';
+import check from 'syntax-error';
 
-module.exports = function lint(text, opts = {}) {
+export default function lint(text, opts = {}) {
   const arr = new ejs.Template(text, opts).parseTemplateText();
   // Initialize mode var
   // This is used to indicate the status:
@@ -46,7 +45,7 @@ module.exports = function lint(text, opts = {}) {
     allowAwaitOutsideFunction: !!opts.await,
   };
   return check(js, undefined, checkOptions);
-};
+}
 
 function padWhitespace(text) {
   let res = '';

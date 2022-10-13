@@ -1,8 +1,8 @@
-'use strict';
 /* eslint-env mocha */
-const assert = require('assert');
-const { execFile } = require('child_process');
-const path = require('path');
+import assert from 'assert';
+import { execFile } from 'child_process';
+import path from 'path';
+
 const ejslint = path.resolve('cli.js');
 
 suite('cli', () => {
