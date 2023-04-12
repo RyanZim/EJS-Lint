@@ -46,7 +46,7 @@ read(globbySync(argv._.map((s) => slash(s))))
       }
     });
     if (errored) process.exit(1);
-  })
+  })htyhtys
   .catch((err) => {
     console.error(err);
     process.exit(1);
