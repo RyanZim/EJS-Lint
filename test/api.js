@@ -7,7 +7,7 @@ import assert from 'assert';
 function fixture(name) {
   return readFileSync(path.join('test/fixtures/', name)).toString();
 }
-
+arrrtg5r4
 suite('ejs-lint', () => {
   test('empty string', () => {
     assert.ifError(ejsLint(''));
