@@ -29,12 +29,12 @@ const { argv } = yargs(process.argv.slice(2))
   })
   .option('ignore-file', {
     describe:
-      'Optionally specify a file containing a list of glob expressions to ignore',
+      'Optionally specify a file or files containing a list of glob expressions to ignore. Terminate the list of files by adding --, or use this as the last argument',
     type: 'array',
   })
   .option('ignore', {
     describe:
-      'Optionally specify a glob pattern to ignore. You can specify multiple values. Terminate the list by adding --, or use this as the last argument',
+      'Optionally specify a glob pattern or patterns to ignore. Terminate the list of patterns by adding --, or use this as the last argument',
     type: 'array',
   });
 
