@@ -9,7 +9,7 @@ suite('cli', () => {
   test('.ejslintignore + custom_ignore', (done) => {
     execFile(
       ejslint,
-      ['test/fixtures/*', '--ignorefile', 'test/.custom_ignore'],
+      ['test/fixtures/*', '--ignore-file', 'test/.custom_ignore'],
       (err, stdout, stderr) => {
         assert.ifError(err);
         assert(!stderr);
@@ -52,8 +52,7 @@ suite('cli', () => {
     );
   });
   test('.ejslintignore', (done) => {
-    execFile(ejslint, ['test/fixtures/*'], (err, stdout, stderr) => {
-      const expectedContext = `\n<% ] %>\n   ^`;
+    execFile(ejslint, ['test/fixtures/*'], (err) => {
       assert.equal(err.code, 1, 'expected exit code of 1');
       assert.doesNotMatch(
         err.message,

@@ -27,10 +27,10 @@ const { argv } = yargs(process.argv.slice(2))
     describe: 'Allow usage of await in template',
     type: 'boolean',
   })
-  .option('ignorefile', {
+  .option('ignore-file', {
     describe:
       'Optionally specify a file containing a list of glob expressions to ignore',
-    type: 'string',
+    type: 'array',
   })
   .option('ignore', {
     describe:
@@ -43,10 +43,9 @@ const ignoreFilePaths = [];
 if (ejsLintIgnoreExists) {
   ignoreFilePaths.push('.ejslintignore');
 }
-if (argv.ignorefile) {
-  ignoreFilePaths.push(argv.ignorefile);
+if (Array.isArray(argv['ignore-file'])) {
+  ignoreFilePaths.push(...argv['ignore-file']);
 }
-console.log(`--ignore, ${argv.ignore}`);
 const ignorePatterns = [...(Array.isArray(argv.ignore) ? argv.ignore : [])];
 ignoreFilePaths.forEach((filepath) => {
   const lines = fs
@@ -61,7 +60,6 @@ const opts = {
   await: argv.await,
   ignore: ignorePatterns,
 };
-console.log(`Ignoring: ${opts.ignore}`);
 read(
   globbySync(
     argv._.map((s) => slash(s)),
