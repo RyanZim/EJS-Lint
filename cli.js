@@ -70,7 +70,6 @@ read(
 )
   .then((res) => {
     let errored = false;
-    console.log(res);
     res.files.forEach((file) => {
       const err = ejsLint(file.data, opts);
       if (err) {
