@@ -46,6 +46,8 @@ Options:
   -d, --delimiter         Specify a custom delimiter ( i.e. <? instead of <% ) [string]
   --preprocessor-include  Allow old (pre-EJS v3) preprocessor-style includes   [boolean]
   --await                 Allow usage of await inside template                 [boolean]
+  --ignore                Glob pattern(s) to ignore                            [array]
+  --ignore-file           File(s) containing glob patterns to ignore           [array]
 ```
 
 ## API

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
+import fs from 'fs';
 import yargs from 'yargs';
 import { globbySync } from 'globby';
 import slash from 'slash';
@@ -25,14 +26,48 @@ const { argv } = yargs(process.argv.slice(2))
   .option('await', {
     describe: 'Allow usage of await in template',
     type: 'boolean',
+  })
+  .option('ignore-file', {
+    describe:
+      'Optionally specify a file or files containing a list of glob expressions to ignore. Terminate the list of files by adding --, or use this as the last argument',
+    type: 'array',
+  })
+  .option('ignore', {
+    describe:
+      'Optionally specify a glob pattern or patterns to ignore. Terminate the list of patterns by adding --, or use this as the last argument',
+    type: 'array',
   });
 
+const ejsLintIgnoreExists = fs.existsSync('.ejslintignore');
+const ignoreFilePaths = [];
+if (ejsLintIgnoreExists) {
+  ignoreFilePaths.push('.ejslintignore');
+}
+if (Array.isArray(argv['ignore-file'])) {
+  ignoreFilePaths.push(...argv['ignore-file']);
+}
+const ignorePatterns = [...(Array.isArray(argv.ignore) ? argv.ignore : [])];
+ignoreFilePaths.forEach((filepath) => {
+  const lines = fs
+    .readFileSync(filepath, 'utf-8')
+    .split('\n')
+    .filter((line) => !!line);
+  ignorePatterns.push(...lines);
+});
 const opts = {
   delimiter: argv.delimiter,
   preprocessorInclude: argv['preprocessor-include'],
   await: argv.await,
+  ignore: ignorePatterns,
 };
-read(globbySync(argv._.map((s) => slash(s))))
+read(
+  globbySync(
+    argv._.map((s) => slash(s)),
+    {
+      ignore: opts.ignore,
+    },
+  ),
+)
   .then((res) => {
     let errored = false;
     res.files.forEach((file) => {
