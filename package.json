@@ -1,6 +1,6 @@
 {
   "name": "ejs-lint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Linter/Syntax Checker for EJS Templates",
   "author": "Ryan Zimmerman <opensrc@ryanzim.com> (http://ryanzim.com/)",
   "license": "MIT",
