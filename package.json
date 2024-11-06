@@ -42,8 +42,7 @@
     "prettier": "^3.0.0"
   },
   "prettier": {
-    "singleQuote": true,
-    "trailingComma": "all"
+    "singleQuote": true
   },
   "renovate": {
     "extends": [
