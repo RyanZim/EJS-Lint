@@ -38,7 +38,7 @@
     "eslint": "^8.24.0",
     "eslint-config-problems": "^7.0.0",
     "mocha": "^10.0.0",
-    "nyc": "^15.0.0",
+    "nyc": "^17.0.0",
     "prettier": "^3.0.0"
   },
   "prettier": {
