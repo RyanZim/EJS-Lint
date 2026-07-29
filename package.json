@@ -43,12 +43,5 @@
   },
   "prettier": {
     "singleQuote": true
-  },
-  "renovate": {
-    "extends": [
-      "config:base",
-      ":preserveSemverRanges",
-      ":label(deps)"
-    ]
   }
 }
